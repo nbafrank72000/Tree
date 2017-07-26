@@ -1,0 +1,30 @@
+<% provide(:title, @user.name) %>
+
+<div class = "show_page">
+
+	<aside class = "aside col-md-3">
+			<div class = "aside_item aside_logo"><%= link_to "Tree", '#' %></div>
+			<div class = "aside_item aside_headpic"><%= image_tag @user.headpic.url, alt: @user.name, class: "headpic" %></div>
+
+			<div class = "aside_item"><%= link_to @user.name, '#' %></div>
+			<div class = "aside_item"><%= link_to "Album", '#' %></div>
+			<div class = "aside_item"><%= link_to "Profile", '#' %></div>
+			<div class = "aside_item"><%= link_to "Friend", '#' %></div>
+
+			<% if logged_in? %>
+			<div class = "dropup aside_item aside_bottom">
+		  	<a href="#" class = "dropdown-toggle" data-toggle = "dropdown">Account</a>
+		  		<div class = "dropdown-menu">
+		  			<div class = "aside_item aside_drop_item"><%= link_to "Setting", '#' %></div>
+		  			<div class = "divider"></div>
+		  			<div class = "aside_item aside_drop_item" ><%= link_to "Log out", logout_path %></div>
+		  		</div>
+		  </div>
+		  <% end %>
+	</aside>
+
+	<div class = "col-md-8">
+
+	</div>
+
+</div>
