@@ -1,0 +1,6 @@
+<h2 class = "search_page">Search with " <%= params[:search] %>"</h2>
+<br>
+
+<div>
+   <%= render :partial => "users/item", :collection => @users, :as => :user %>
+</div>

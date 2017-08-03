@@ -1,13 +1,12 @@
 # encoding: utf-8
 
-class HeadpicUploader < CarrierWave::Uploader::Base
+class PictureUploader < CarrierWave::Uploader::Base
 
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
-   include CarrierWave::MiniMagick
-   #process resize_to_limit: [300, 300]
-   process :auto_orient
-   #process resize_to_limit: [50, 50]
+  include CarrierWave::MiniMagick
+  process resize_to_limit: [300, 300]
+  process :auto_orient
 
   # Choose what kind of storage to use for this uploader:
   storage :file

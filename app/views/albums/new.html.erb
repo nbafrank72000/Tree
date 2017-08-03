@@ -1,0 +1,26 @@
+<% provide(:title, "Create Album") %>
+
+<div class = "create_album_page">
+
+	<%= render 'shared/aside' %>
+	
+
+	<div class = "col-md-8 create_album">
+		<div class = "topic">Post a album</div>
+		<div class = "field">
+			<%= form_for(@album, html: { multipart: true }) do |f| %>
+				<%= f.label :past, class: "checkbox" do %>
+					<%= f.check_box :past %>
+					<span>Post to Past</span> 
+				<% end %>
+				<%= f.text_area :name, placeholder: "Album Name", class: "album_name" %>
+				<%= f.text_area :description, placeholder: "Album Description", class: "album_description" %>
+				<%= f.file_field :picture, :multiple => true, name: "photos[picture][]" %>
+				
+				<%= f.submit "Post", class: "btn btn-primary btn-yellow" %>
+			<% end %>
+		</div>
+	</div>
+
+</div>
+

@@ -1,0 +1,30 @@
+<% provide(:title, "Edit Album") %>
+
+<div class = "edit_album_page">
+
+	<%= render 'shared/aside' %>
+	
+
+	<div class = "col-md-8 edit_album">
+		<div class = "topic">Edit album</div>
+		<div class = "field">
+			<%= form_for(@album, html: { multipart: true }) do |f| %>
+				<%= render 'shared/error_messages', object: f.object %>
+
+			
+				<%= f.label :name, "Album Name" %>
+				<%= f.text_area :name, placeholder: "Album name." %>
+
+				<%= f.label :description, "Album Description" %>
+				<%= f.text_area :description, placeholder: "Album description." %>
+
+				<%= f.label :picture, "Photos" %><br>
+				<%= f.file_field :picture, :multiple => true, name: "photos[picture][]" %>
+				<%= f.submit "Add photos", class: "btn btn-success" %>
+			<% end %>
+			<%= link_to 'Cancel', album_path, class: "btn btn-primary btn-yellow" %>
+		</div>
+	</div>
+</div>
+
+		

@@ -2,29 +2,26 @@
 
 <div class = "show_page">
 
-	<aside class = "aside col-md-3">
-			<div class = "aside_item aside_logo"><%= link_to "Tree", '#' %></div>
-			<div class = "aside_item aside_headpic"><%= image_tag @user.headpic.url, alt: @user.name, class: "headpic" %></div>
+	<%= render 'shared/aside' %>
 
-			<div class = "aside_item"><%= link_to @user.name, '#' %></div>
-			<div class = "aside_item"><%= link_to "Album", '#' %></div>
-			<div class = "aside_item"><%= link_to "Profile", '#' %></div>
-			<div class = "aside_item"><%= link_to "Friend", '#' %></div>
+	<div class = "col-md-8 albums">
+		<% if @user.albums.any? %>
+			<div class = "topic">Albums</div>
 
-			<% if logged_in? %>
-			<div class = "dropup aside_item aside_bottom">
-		  	<a href="#" class = "dropdown-toggle" data-toggle = "dropdown">Account</a>
-		  		<div class = "dropdown-menu">
-		  			<div class = "aside_item aside_drop_item"><%= link_to "Setting", '#' %></div>
-		  			<div class = "divider"></div>
-		  			<div class = "aside_item aside_drop_item" ><%= link_to "Log out", logout_path %></div>
-		  		</div>
-		  </div>
-		  <% end %>
-	</aside>
+				<%= render @albums %>
 
-	<div class = "col-md-8">
+		<% else %>
+			<% if current_user?(@user) %>
+				<div class = "topic">You don't post any albums!</div>
+				<%= link_to "Create Album", new_album_url , class: "btn btn-primary btn-yellow-narrow" %>
+			<% else %>
+				<div class = "topic"><%= @user.name %> doesn't post any albums!</div>
+			<% end %>
+		<% end %>
+	</div>
 
+	<div class = "col-md-8 tree">
+		<div class = "topic">Life Tree</div>
 	</div>
 
 </div>

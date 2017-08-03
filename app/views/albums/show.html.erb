@@ -1,0 +1,47 @@
+<% provide(:title, @album.name) %>
+
+<section>
+	<div class = "container">
+		<div class = "gallery">
+			<div class = "gallery-nav">
+				<div class = "gallery-back"><%= link_to 'Back to Albums', user_path(@album.user_id), class: "btn btn-primary btn-sm" %></div>
+				<div class = "gallery-name"><h2> Album : <%= @album.name %></h2></div>
+				<div class = "gallery-add"><%= link_to "Add photos", edit_album_path(@album), class: "btn btn-primary btn-sm" %></div>
+			</div>
+
+			<% @photos.each_slice(4) do |photo| %>
+				<div class = "rows">
+					<% photo.each do |photo| %>
+						<div class = "col-md-3">
+							<div class = "photo photo-type-line">
+								<div class = "photo-hover" data-title = "">
+									<div class = "photo-info" data-ligntbox = "my_images">
+										<div class = "photo-id"><%= link_to "Take a look", photo_path(photo), class: "btn btn-xl btn-success" %></div>
+										<div class = "line"></div>
+										<div class = "photo-delete"><%= link_to "Delete", photo_path(photo), method: :delete, data: {confirm: "You sure?"}, class: "btn btn-xl btn-danger" %></div>
+									</div>
+									<div class = "mask"></div>
+								</div>
+								<div class = "photo-img">
+									<%= image_tag(photo.picture_url) %>
+								</div>
+							</div>
+						</div>
+					<% end %>
+				</div>
+			<% end %>
+
+		</div>
+	</div>
+</section>
+
+<script type="text/javascript">
+$('.photo-hover').hover(function(){
+		$(this).children('.photo-info').children('.photo-id').children('a').css({transform: 'rotateX(0deg)'});
+		$(this).parent('.relationship-container').children('.travel-content').children('.travel-content-button').children('div').css({transform: 'rotateX(0deg)'});
+	}, function(){
+		$(this).children('.photo-info').children('.photo-id').children('a').css({transform, 'rotateX(90deg)'});
+		$(this).parent('.relationship-container').children('.travel-content').children('.travel-content-button').children('div').css({transform: 'rotateX(90deg)'});
+	}
+);
+</script>
