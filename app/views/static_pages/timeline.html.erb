@@ -1,18 +1,14 @@
-<% provide(:title, @user.name) %>
+<% provide(:title, 'Timeline') %>
 
 <div class = "show_page">
 
 	<%= render 'shared/aside' %>
 
 	<div class = "col-md-8 albums">
-		<% if @user.albums.any? %>
-			<% if current_user?(@user) %>
-				<div class = "topic">My Albums</div>
-			<% else %>
-				<div class = "topic"><%= @user.name %>'s Albums</div>
-			<% end %>
+		<% if @feed_items.any? %>
+			<div class = "topic">Timeline</div>
 
-				<%= render @albums %>
+				<%= render @feed_items %>
 
 		<% else %>
 			<% if current_user?(@user) %>

@@ -21,8 +21,9 @@
 				<%= f.label :picture, "Photos" %><br>
 				<%= f.file_field :picture, :multiple => true, name: "photos[picture][]" %>
 				<%= f.submit "Add photos", class: "btn btn-success" %>
+
+				<%= link_to 'Cancel', album_path, class: "btn btn-yellow" %>
 			<% end %>
-			<%= link_to 'Cancel', album_path, class: "btn btn-primary btn-yellow" %>
 		</div>
 	</div>
 </div>

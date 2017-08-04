@@ -15,7 +15,7 @@ class SessionsController < ApplicationController
   		if user.activated?
   			log_in(user)
 				params[:session][:remember_me] == '1' ? remember(user) : forget(user)
-				redirect_to user
+				redirect_back_or static_pages_timeline_url
 			else
 				message = "Account not activated."
 				message += "Check your email for activation link."

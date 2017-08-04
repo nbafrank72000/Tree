@@ -214,6 +214,14 @@ class User < ApplicationRecord
 		end
 	end
 
+	def feed
+		Album.where("(user_id = ?) OR (user_id IN (?) AND past = ?) OR (user_id IN (?) AND past = ?)", id, following_ids, false, past_following_ids, true)
+	end
+
+	def feed_show
+		Album.where("(user_id IN (?) AND past = ?) OR (user_id IN (?) AND past = ?)", following_ids, false, past_following_ids, true)
+	end
+
 	private
 
 	def email_downcase

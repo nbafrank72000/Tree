@@ -4,9 +4,11 @@
 	<div class = "container">
 		<div class = "gallery">
 			<div class = "gallery-nav">
-				<div class = "gallery-back"><%= link_to 'Back to Albums', user_path(@album.user_id), class: "btn btn-primary btn-sm" %></div>
+				<div class = "gallery-back"><%= link_to 'Go Timeline', static_pages_timeline_url, class: "btn btn-primary btn-sm" %></div>
 				<div class = "gallery-name"><h2> Album : <%= @album.name %></h2></div>
-				<div class = "gallery-add"><%= link_to "Add photos", edit_album_path(@album), class: "btn btn-primary btn-sm" %></div>
+				<% if current_user?(@album.user) %>
+					<div class = "gallery-add"><%= link_to "Add photos", edit_album_path(@album), class: "btn btn-primary btn-sm" %></div>
+				<% end %>
 			</div>
 
 			<% @photos.each_slice(4) do |photo| %>
@@ -16,9 +18,11 @@
 							<div class = "photo photo-type-line">
 								<div class = "photo-hover" data-title = "">
 									<div class = "photo-info" data-ligntbox = "my_images">
-										<div class = "photo-id"><%= link_to "Take a look", photo_path(photo), class: "btn btn-xl btn-success" %></div>
+										<div class = "photo-id"><%= link_to "Take a look", '#', class: "btn btn-xl btn-success" %></div>
 										<div class = "line"></div>
-										<div class = "photo-delete"><%= link_to "Delete", photo_path(photo), method: :delete, data: {confirm: "You sure?"}, class: "btn btn-xl btn-danger" %></div>
+										<% if current_user?(@album.user) %>
+											<div class = "photo-delete"><%= link_to "Delete", photo_path(photo), method: :delete, data: {confirm: "You sure?"}, class: "btn btn-xl btn-danger" %></div>
+										<% end %>
 									</div>
 									<div class = "mask"></div>
 								</div>

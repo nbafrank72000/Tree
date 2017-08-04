@@ -3,7 +3,7 @@
 		<div class = "album_past">
 
 			<div class = "left-top">
-				<%= link_to image_tag(@user.headpic.url, alt: @user.name, class: "headpic") %>
+				<%= link_to image_tag(album.user.headpic.url, alt: album.user.name, class: "headpic"), user_path(album.user_id) %>
 			</div>
 			<div class = "right-top">
 				<div class = "datetime"><%= album.created_at.to_date.to_s %></div>
@@ -18,11 +18,11 @@
 						<%= link_to "Delete", album, method: :delete, data: {confirm: "You sure?"}, class: "btn btn-delete" %>
 					</div>
 					<div class = "action">
-						<% if album.past %>
 							<%= link_to "Past", change_past_now_albums_path(:id => album.id), data: {confirm: "Change it to Now?"}, class: "btn btn-past" %>
-						<% else %>
-							<%= link_to "Now", change_past_now_albums_path(:id => album.id), data: {confirm: "Change it to Past?"}, class: "btn btn-now" %>
-						<% end %>
+					</div>
+				<% else %>
+					<div class = "action">
+							<div class = "btn btn-past">Past</div>
 					</div>
 				<% end %>
 			</div>
@@ -34,7 +34,7 @@
 		<div class = "album_present">
 
 			<div class = "left-top">
-				<%= link_to image_tag(@user.headpic.url, alt: @user.name, class: "headpic") %>
+				<%= link_to image_tag(album.user.headpic.url, alt: album.user.name, class: "headpic"), user_path(album.user_id) %>
 			</div>
 			<div class = "right-top">
 				<div class = "datetime"><%= album.created_at.to_date.to_s %></div>
@@ -49,11 +49,11 @@
 						<%= link_to "Delete", album, method: :delete, data: {confirm: "You sure?"}, class: "btn btn-delete" %>
 					</div>
 					<div class = "action">
-						<% if album.past %>
-							<%= link_to "Past", change_past_now_albums_path(:id => album.id), data: {confirm: "Change it to Now?"}, class: "btn btn-past" %>
-						<% else %>
 							<%= link_to "Now", change_past_now_albums_path(:id => album.id), data: {confirm: "Change it to Past?"}, class: "btn btn-now" %>
-						<% end %>
+					</div>
+				<% else %>
+					<div class = "action">
+							<div class = "btn btn-now">Now</div>
 					</div>
 				<% end %>
 			</div>

@@ -2,6 +2,8 @@ Rails.application.routes.draw do
 
 	root 'sessions#new'
 
+  get 'static_pages/timeline'
+
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
   get '/logout', to: 'sessions#destroy'
