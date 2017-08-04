@@ -1,7 +1,5 @@
 <ul class = "users">
   <li>
-		<%= link_to user.name, user_path(user.id)%> -
-	  <%= user.email %>
-	 	
+		<%= link_to user.name, static_pages_profile_path(@user) %> - <%= user.email %>	
   </li>
 </ul>

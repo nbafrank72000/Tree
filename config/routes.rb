@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 	root 'sessions#new'
 
   get 'static_pages/timeline'
+  get 'static_pages/profile'
 
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
