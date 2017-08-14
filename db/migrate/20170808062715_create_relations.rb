@@ -2,7 +2,7 @@ class CreateRelations < ActiveRecord::Migration[5.1]
   def change
     create_table :relations do |t|
     	t.integer :owner_id
-    	t.integer :onwed_id
+    	t.integer :owned_id
 
       t.timestamps
     end
