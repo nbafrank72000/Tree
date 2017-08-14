@@ -1,0 +1,22 @@
+<% provide(:title, @title) %>
+
+<div class = "show_follow_page">
+
+	<%= render 'shared/aside' %>
+	
+
+	<div class = "col-md-8 show_follow">
+		<div class = "topic"><%= "#{@user.name} #{@title}" %></div>
+		<div class = "result">
+			<% if @users.any? %>
+				<ul>
+					<% @users.each do |user| %>
+		 				<li>
+							<%= link_to user.name, user_path(user) %> - <%= user.email %>	
+					  </li>
+					<% end %>
+				</ul>
+			<% end %>
+		</div>
+
+</div>

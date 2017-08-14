@@ -6,14 +6,14 @@
 
 	<div class = "col-md-8 search">
 
-		<div class = "topic">Search with "<%= params[:search] %>"</div>
+		<div class = "topic">search with "<%= params[:search] %>"</div>
 
 		<div class = "result">
 			<% if !@users.nil? %>
 				<ul>
 					<% @users.each do |user| %>
 	 						<li>
-								<%= link_to user.name, user_path(user) %> - <%= user.email %>	
+								<%= link_to "#{user.name}", edit_user_url(user), class: "name" %> - <%= user.email %>	
 						  </li>
 					<% end %>
 				</ul>

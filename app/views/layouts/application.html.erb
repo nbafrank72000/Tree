@@ -9,9 +9,22 @@
   </head>
 
   <body>
-  	<% flash.each do |message_type, message| %>
-  		<div class = "alert alert-<%= message_type %>"><%= message %></div>
-  	<% end %>
+     <% flash.each do |message_type, message| %>
+      <div id = "notice_wrapper">
+        <div class = "notice-<%= message_type %>"><%= message %></div>
+      </div>
+    <% end %>
     <%= yield %>
+
+    <script type="text/javascript">
+      $(document).ready(function(){
+        setTimeout(function(){
+          $('#notice_wrapper').fadeOut("slow", function(){
+            $(this).remove();
+          })
+        }, 3000);
+      });
+    </script>
+
   </body>
 </html>

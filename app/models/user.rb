@@ -26,6 +26,10 @@ class User < ApplicationRecord
 	has_many :past_pending_relationships, -> {where(past_status: 2)}, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
 	has_many :past_pending, through: :past_pending_relationships, source: :follower
 
+	#--------------------------------------------------------------------------------------------
+	has_many :owning_relations, class_name: "Relation", foreign_key: "owner_id", dependent: :destroy
+	has_many :owning, through: :owning_relations, source: :owned
+
 	attr_accessor :activation_token, :remember_token
 
 	before_save :email_downcase
@@ -214,6 +218,7 @@ class User < ApplicationRecord
 		end
 	end
 
+	#--------------------------------------------------------------------------------------------
 	def feed
 		Album.where("(user_id = ?) OR (user_id IN (?) AND past = ?) OR (user_id IN (?) AND past = ?)", id, following_ids, false, past_following_ids, true)
 	end
@@ -222,6 +227,20 @@ class User < ApplicationRecord
 		Album.where("(user_id IN (?) AND past = ?) OR (user_id IN (?) AND past = ?)", following_ids, false, past_following_ids, true)
 	end
 
+	#--------------------------------------------------------------------------------------------
+	def own(other_album)
+		owning << other_album
+	end
+
+	def unown(other_album)
+		owning.delete(other_album)
+	end
+
+	def owning?(other_album)
+		owning.include?(other_album)
+	end
+
+	#--------------------------------------------------------------------------------------------
 	private
 
 	def email_downcase

@@ -6,7 +6,7 @@
 	
 
 	<div class = "col-md-8 edit_album">
-		<div class = "topic">Edit album</div>
+		<div class = "topic">edit album</div>
 		<div class = "field">
 			<%= form_for(@album, html: { multipart: true }) do |f| %>
 				<%= render 'shared/error_messages', object: f.object %>
@@ -20,12 +20,65 @@
 
 				<%= f.label :picture, "Photos" %><br>
 				<%= f.file_field :picture, :multiple => true, name: "photos[picture][]" %>
-				<%= f.submit "Add photos", class: "btn btn-success" %>
 
-				<%= link_to 'Cancel', album_path, class: "btn btn-yellow" %>
+				<% if @album.past %>
+					<div class = "share_album">
+						<div id = "past_call_owner", class = "btn btn-green">Share this past-album with who?</div>
+						<div id = "past_owner_list">
+								<ul>
+									<% if current_user.past_following.any? %>
+										<% current_user.past_following.each do |owner| %>
+											<li>
+												<div class = "owner"><%= owner.name %> -- </div>
+												<div class = "action"><%= link_to "Share", '#', class: "btn btn-blue" %></div>
+											</li>
+										<% end %>
+									<% else %>
+										<div class = "msg">You don't have any past following to share with!</div>
+									<% end %>
+								</ul>
+						</div>
+					</div>
+				<% else %>
+					<div class = "share_album">
+						<div id = "call_owner", class = "btn btn-green">Share this now-album with who?</div>
+						<div id = "owner_list">
+								<ul>
+									<% if current_user.following.any? %>
+										<% current_user.following.each do |owner| %>
+											<li>
+												<div class = "owner"><%= owner.name %> -- </div>
+												<div class = "action"><%= link_to "Share", '#', class: "btn btn-blue" %></div>
+											</li>
+										<% end %>
+									<% else %>
+										<div class = "msg">You don't have any following to share with!</div>
+									<% end %>
+								</ul>
+						</div>
+					</div>
+				<% end %>
+
+				<%= f.submit "Add photos OR update infomation", class: "btn btn-blue" %>
+
+				<%= link_to 'Cancel', album_path, class: "btn btn-red cancel-btn btn-full" %>
 			<% end %>
 		</div>
 	</div>
 </div>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('#call_owner').click(function(){
+			$('#owner_list').toggle();
+		});
+	});
+
+	$(document).ready(function(){
+		$('#past_call_owner').click(function(){
+			$('#past_owner_list').toggle();
+		});
+	});
+</script>
 
 		

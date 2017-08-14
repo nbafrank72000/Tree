@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170802030448) do
+ActiveRecord::Schema.define(version: 20170811082927) do
 
   create_table "albums", force: :cascade do |t|
     t.string "name"
@@ -28,6 +28,17 @@ ActiveRecord::Schema.define(version: 20170802030448) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "album_id"
+  end
+
+  create_table "relations", force: :cascade do |t|
+    t.integer "owner_id"
+    t.integer "onwed_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "status"
+    t.index ["owner_id", nil], name: "index_relations_on_owner_id_and_owned_id", unique: true
+    t.index ["owner_id"], name: "index_relations_on_owner_id"
+    t.index [nil], name: "index_relations_on_owned_id"
   end
 
   create_table "relationships", force: :cascade do |t|

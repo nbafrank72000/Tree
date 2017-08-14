@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   	member do
       get :following, :followers
       get :past_following, :past_followers
+      get :owning
     end
   	collection do
       get :friend
@@ -26,11 +27,16 @@ Rails.application.routes.draw do
 
   resources :account_activations, only: [:edit]
   resources :albums do
+    member do
+      get :owners
+    end
   	collection do
       get :change_past_now
+      get :before_create
     end
   end
   resources :photos
 
   resources :relationships
+  resources :relations
 end

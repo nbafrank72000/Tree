@@ -5,55 +5,72 @@
 	<%= render 'shared/aside' %>
 
 	<div class = "col-md-8 friends">
-		<div class = "topic">Friends Relationships</div>
+		<div class = "topic">friends relationships</div>
 
 		<ul class = "nav nav-pills">
-			<li class = "active tab"><a href="#Follow_friends" data-toggle = "tab">Who I follow</a></li>
-			<li class = "tab"><a href="#Follow_me" data-toggle = "tab">who follow Me</a></li>
+			<li class = "active tab"><a href="#Follow_friends" data-toggle = "tab">who I follow</a></li>
+			<li class = "tab"><a href="#Follow_me" data-toggle = "tab">who follow me</a></li>
 		</ul>
 
 		<div class = "tab-topic">
-			<div class = "name item">Name</div>
-			<div class = "past_relation item">Past Relation</div>
-			<div class = "present_relation item">Present Relation</div>
+			<div class = "name item">name</div>
+			<div class = "past_relation item">past relation</div>
+			<div class = "present_relation item">present relation</div>
 		</div>
 
 		<div class = "tab-content">
 			<div class = "tab-pane fade in active" id = "Follow_friends">
+
+				<% @pended_users.each do |user| %>
+					<div class = "list">
+						<div class = "headpic"><%= link_to image_tag(user.headpic.url, alt: user.name), user %></div>
+						<div class = "name"><%= link_to user.name, edit_user_path(user) %></div>
+						<% unless current_user?(user) %>
+							<div class = "present">
+								<% if current_user.pended?(user) %>
+									<%= form_for(current_user.pended_relationships.find_by(followed_id: user.id), html: {method: :delete}) do |f| %>
+										<%= f.submit "REQUESTED (UNFOLLOW)", class: "btn btn-warning cus" %>
+									<% end %>
+								<% end %>
+							</div>
+						<% end %>
+					</div>
+				<% end %>
+
 				<% @follow_users.each do |user| %>
 					<div class = "list">
 						<div class = "headpic"><%= link_to image_tag(user.headpic.url, alt: user.name), user %></div>
-						<div class = "name"><%= link_to user.name, user %></div>
+						<div class = "name"><%= link_to user.name, edit_user_path(user) %></div>
 
 							<% unless current_user?(user) %>
 								<div class = "present">
 										<% if current_user.following?(user) %>
 											<%= form_for(current_user.active_relationships.find_by(followed_id: user.id), html: {method: :delete}) do |f| %>
-												<%= f.submit "Friend (Unfollow)", class: "btn btn-success cus" %>
+												<%= f.submit "FRIEND (UNFOLLOW)", class: "btn btn-success cus" %>
 											<% end %>
 										<% elsif current_user.pended?(user) %>
 											<%= form_for(current_user.pended_relationships.find_by(followed_id: user.id), html: {method: :delete}) do |f| %>
-												<%= f.submit "Requested (Unfollow)", class: "btn btn-warning cus" %>
+												<%= f.submit "REQUESTED (UNFOLLOW)", class: "btn btn-warning cus" %>
 											<% end %>
 										<% else %>
 											<%= form_for(current_user.pended_relationships.build) do |f| %>
 												<div><%= hidden_field_tag :followed_id, user.id %></div>
-												<%= f.submit "Follow", class: "btn btn-primary cus" %>
+												<%= f.submit "FOLLOW", class: "btn btn-primary cus" %>
 											<% end %>
 										<% end %>
 								</div>
 								<div class = "past">
 										<% if current_user.past_following?(user) %>
 											<%= form_for(current_user.past_active_relationships.find_by(followed_id: user.id), html: {method: :patch}) do |f| %>
-												<%= f.submit "Friend (Unfollow)", class: "btn btn-success cus" %>
+												<%= f.submit "FRIEND (UNFOLLOW)", class: "btn btn-success cus" %>
 											<% end %>
 										<% elsif current_user.past_pended?(user) %>
 											<%= form_for(current_user.past_pended_relationships.find_by(followed_id: user.id), html: {method: :patch}) do |f| %>
-												<%= f.submit "Requested (Unfollow)", class: "btn btn-warning cus" %>
+												<%= f.submit "REQUESTED (UNFOLLOW)", class: "btn btn-warning cus" %>
 											<% end %>
 										<% elsif current_user.following?(user) %>
 											<%= form_for(current_user.active_relationships.find_by(followed_id: user.id), html: {method: :patch}) do |f| %>
-												<%= f.submit "Follow", class: "btn btn-primary cus" %>
+												<%= f.submit "FOLLOW", class: "btn btn-primary cus" %>
 											<% end %>
 										<% else %>
 
@@ -66,26 +83,50 @@
 			</div>
 
 			<div class = "tab-pane fade" id = "Follow_me">
+
+			<% @pending_users.each do |user| %>
+				<div class = "list">
+					<div class = "headpic"><%= link_to image_tag(user.headpic.url, alt: user.name), user %></div>
+					<div class = "name"><%= link_to user.name, edit_user_path(user) %></div>
+					<% unless current_user?(user) %>
+						<div class = "present">
+							<% if current_user.pending?(user) %>
+								<div class = "action_choice">
+									<%= form_for(current_user.pending_relationships.find_by(follower_id: user.id), html: {method: :delete}) do |f| %>
+										<%= f.submit "REJECT", class: "btn btn-danger cus-ac" %>
+									<% end %>
+								</div>
+								<div class = "action_choice">
+									<%= form_for(current_user.pending_relationships.find_by(follower_id: user.id), html: {method: :patch}) do |f| %>
+										<%= f.submit "ACCEPT", class: "btn btn-warning cus-ac" %>
+									<% end %>
+								</div>
+							<% end %>
+						</div>
+					<% end %>
+				</div>
+			<% end %>
+
 				<% @followed_users.each do |user| %>
 					<div class = "list">
 						<div class = "headpic"><%= link_to image_tag(user.headpic.url, alt: user.name), user %></div>
-						<div class = "name"><%= link_to user.name, user %></div>
+						<div class = "name"><%= link_to user.name, edit_user_path(user) %></div>
 
 							<% unless current_user?(user) %>
 								<div class = "present">
 										<% if current_user.follower?(user) %>
 											<%= form_for(current_user.passive_relationships.find_by(follower_id: user.id), html: {method: :delete}) do |f| %>
-												<%= f.submit "Friend (Reject)", class: "btn btn-success cus" %>
+												<%= f.submit "FRIEND (REJECT)", class: "btn btn-success cus" %>
 											<% end %>
 										<% elsif current_user.pending?(user) %>
 											<div class = "action_choice">
 												<%= form_for(current_user.pending_relationships.find_by(follower_id: user.id), html: {method: :delete}) do |f| %>
-													<%= f.submit "Reject", class: "btn btn-danger cus-ac" %>
+													<%= f.submit "REJECT", class: "btn btn-danger cus-ac" %>
 												<% end %>
 											</div>
 											<div class = "action_choice">
 												<%= form_for(current_user.pending_relationships.find_by(follower_id: user.id), html: {method: :patch}) do |f| %>
-													<%= f.submit "Accept", class: "btn btn-warning cus-ac" %>
+													<%= f.submit "ACCEPT", class: "btn btn-warning cus-ac" %>
 												<% end %>
 											</div>
 										<% end %>
@@ -93,17 +134,17 @@
 								<div class = "past">
 										<% if current_user.past_follower?(user) %>
 											<%= form_for(current_user.past_passive_relationships.find_by(follower_id: user.id), html: {method: :patch}) do |f| %>
-												<%= f.submit "Friend (Reject)", class: "btn btn-success cus" %>
+												<%= f.submit "FRIEND (REJECT)", class: "btn btn-success cus" %>
 											<% end %>
 										<% elsif current_user.past_pending?(user) %>
 											<div class = "action_choice">
 												<%= form_for(current_user.past_pending_relationships.find_by(follower_id: user.id), html: {method: :patch}) do |f| %>
-													<%= f.submit "Reject", class: "btn btn-danger cus-ac" %>
+													<%= f.submit "REJECT", class: "btn btn-danger cus-ac" %>
 												<% end %>
 											</div>
 											<div class = "action_choice">
 												<%= form_for(current_user.past_pending_relationships.find_by(follower_id: user.id), html: {method: :delete} ) do |f| %>
-													<%= f.submit "Accept", class: "btn btn-warning cus-ac" %>
+													<%= f.submit "ACCEPT", class: "btn btn-warning cus-ac" %>
 												<% end %>
 											</div>
 										<% end %>

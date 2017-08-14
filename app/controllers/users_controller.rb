@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :logged_in_user, only: [:show, :edit, :update, :destroy]
-  before_action :correct_user, only: [:edit, :update]
+  before_action :correct_user, only: [:update]
 
   def new
   	@user = User.new
@@ -9,6 +9,7 @@ class UsersController < ApplicationController
   def create
   	@user = User.new(user_params)
   	if @user.save
+      @user.update_attribute(:activated, true)
   		@user.send_activation_email
   		flash[:success] = "Please check your email to activate your account."
   		redirect_to root_url
@@ -47,8 +48,24 @@ class UsersController < ApplicationController
   def friend
     #@follow_users = User.all
     #@followed_users = User.all
-    @follow_users = current_user.following.where(activated: true).paginate(page: params[:page])
-    @followed_users = current_user.followers.where(activated: true).paginate(page: params[:page])
+    @follow_users = current_user.following.where(activated: true)
+    @pended_users = current_user.pended.where(activated: true)
+    @followed_users = current_user.followers.where(activated: true)
+    @pending_users = current_user.pending.where(activated: true)
+  end
+
+  def following
+    @title = "Following"
+    @user = User.find(params[:id])
+    @users = @user.following
+    render 'show_follow'
+  end
+
+  def followers
+    @title = "Followers"
+    @user = User.find(params[:id])
+    @users = @user.followers
+    render 'show_follow'
   end
 
   private

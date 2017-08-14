@@ -5,6 +5,11 @@ class AlbumsController < ApplicationController
 	def new
 		@album = current_user.albums.build if logged_in?
     @photo = @album.photos.build
+    @option = User.all
+	end
+
+	def before_create
+		
 	end
 
 	def create
@@ -19,6 +24,11 @@ class AlbumsController < ApplicationController
 					params[:photos]['picture'].each do |a|
 						@photo = @album.photos.create!(:picture => a, :album_id => @album.id)
 					end
+					#if !params[:album].nil?
+					#	params[:album]['owners'].each do |o|
+					#		@album.owned_relationship.create(:owner_id => o)
+					#	end
+					#end
 					flash[:success] = "Gallery created successful!"
 					redirect_to current_user
 				else
@@ -31,7 +41,7 @@ class AlbumsController < ApplicationController
 				#redirect_to current_user
 			else
 				flash[:danger] = "Gallery created failed. Please enter gallery name!"
-				redirect_to new_album__user
+				redirect_to new_album_path
 			end
 	end
 
@@ -51,8 +61,8 @@ class AlbumsController < ApplicationController
 					flash[:success] = "Album updated sucessful!"
 					redirect_to @album
 				else
-					flash[:warning] = "Album updated failed. Please choose photos!"
-					redirect_to edit_album_path(@album)
+					flash[:warning] = "Only album information updated. No photos added!"
+					redirect_to @album
 				end
 				#format.html{ redirect_to @gallery, notice: 'Gallery was created!'}
 				#----------------------------------

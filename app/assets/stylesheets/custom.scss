@@ -1,6 +1,43 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+#notice_wrapper{
+	position: absolute;
+	top: 0;
+	width: 100%;
+	z-index: 999;
+	.notice-success{
+		background-color: rgba(135, 216, 211, 0.85);
+		text-align: center;
+		padding: 2.5rem 0;
+		margin: 0;
+		font-size: 1.25rem;
+		font-weight: 700;
+		color: #ffffff;
+		letter-spacing: 1px;
+	}
+	.notice-danger{
+		background-color: rgba(255, 0, 0, 0.8);
+		text-align: center;
+		padding: 2.5rem 0;
+		margin: 0;
+		font-size: 1.25rem;
+		font-weight: 700;
+		color: #ffffff;
+		letter-spacing: 1px;
+	}
+	.notice-warning{
+		background-color: rgba(255, 160, 122, 0.8);
+		text-align: center;
+		padding: 2.5rem 0;
+		margin: 0;
+		font-size: 1.25rem;
+		font-weight: 700;
+		color: #ffffff;
+		letter-spacing: 1px;
+	}
+}
+
 body{
 	font-family: 'Arial';
 	color: #000000;
@@ -69,6 +106,66 @@ input{
 	color: #000000;
 	width: 15%;
 	background-color: #e1d12b;
+}
+
+.btn-blue{
+	color: #ffd700;
+	letter-spacing: 2px;
+	font-family: Apple LiGothic;
+	font-size: 16px;
+	background-color: #000080;
+	border: none;
+}
+.btn-blue:hover{
+	color: #000080;
+	background-color: #ffd700;
+	box-shadow: 1px 1px 2px #333333;
+}
+
+.btn-blue-narrow{
+	color: #ffd700;
+	background-color: #000080;
+	font-family: Apple LiGothic;
+}
+.btn-blue-narrow:hover{
+	color: #000080;
+	background-color: #ffd700;
+}
+
+.btn-red{
+	letter-spacing: 2px;
+	font-family: Apple LiGothic;
+	font-size: 16px;
+	border: none;
+	color: #000080;
+	background-color: #cd5c5c; 
+}
+.btn-red:hover{
+	color: #cd5c5c;
+	background-color: #ffd700;
+	box-shadow: 1px 1px 2px #333333;
+}
+
+.btn-green{
+	letter-spacing: 2px;
+	font-family: Apple LiGothic;
+	font-size: 16px;
+	border: none;
+	color: #000080;
+	background-color: #008b8b; 
+}
+.btn-green:hover{
+	color: #008b8b;
+	background-color: #ffd700;
+	box-shadow: 1px 1px 2px #333333;
+}
+
+.btn-full{
+	width: 100%;
+}
+
+.btn-space-bottom{
+	margin-bottom: 5px;
 }
 
 
@@ -376,6 +473,23 @@ input{
 			color: #000000;
 			margin-bottom: 15px;
 		}
+		.nav-pills{
+			display: inline-block;
+			width: 30%;
+			margin-bottom: 20px;
+			.tab{
+				width: 48%;
+				display: inline;
+				box-shadow: 2px 2px 3px #333333;
+				border: 1px solid #000000;
+				border-radius: 5px;
+				a{
+					font-family: 'Copperplate';
+					font-size: 16px;
+					color: #000000;
+				}
+			}
+		}
 		.field{
 			margin: auto;
 			width: 40%;
@@ -391,6 +505,79 @@ input{
 				font-size: 20px;
 				font-family: 'Copperplate';
 				height: 105px;
+			}
+			input[type=file]{
+				margin: 0;
+			}
+			input[type=checkbox]{
+				visibility: hidden;
+				margin: 0;
+			}
+			#owner_list{
+				margin-top: 5px;
+				display: none;
+				ul{
+					padding: 2px;
+					margin: 0;
+					border-radius: 5px;
+					border: 1px dashed #000080;
+					.msg{
+						font-family: 'Apple LiGothic';
+						font-size: 16px;
+					}
+					li{
+					list-style: none;
+						.owner{
+							display: inline-block;
+							font-family: 'Apple LiGothic';
+							font-size: 16px;
+							letter-spacing: 1px;
+						}
+						.action{
+							display: inline-block;
+							a{
+								font-size: 16px;
+								font-family: 'Apple LiGothic';
+							}
+						}
+					}
+				}
+			}
+			#past_owner_list{
+				margin-top: 5px;
+				display: none;
+				ul{
+					padding: 2px;
+					margin: 0;
+					border-radius: 5px;
+					border: 1px dashed #000080;
+					.msg{
+						font-family: 'Apple LiGothic';
+						font-size: 16px;
+					}
+					li{
+					list-style: none;
+						.owner{
+							display: inline-block;
+							font-family: 'Apple LiGothic';
+							font-size: 16px;
+							letter-spacing: 1px;
+						}
+						.action{
+							display: inline-block;
+							a{
+								font-size: 16px;
+								font-family: 'Apple LiGothic';
+							}
+						}
+					}
+				}
+			}
+			input[type=submit]{
+				margin-top: 5px;
+			}
+			span{
+				font-size: 14px;
 			}
 		}
 	}
@@ -433,6 +620,72 @@ input{
 				font-family: 'Copperplate';
 				height: 105px;
 			}
+			#owner_list{
+				margin-top: 5px;
+				display: none;
+				ul{
+					padding: 2px;
+					margin: 0;
+					border-radius: 5px;
+					border: 1px dashed #000080;
+					.msg{
+						font-family: 'Apple LiGothic';
+						font-size: 16px;
+					}
+					li{
+					list-style: none;
+						.owner{
+							display: inline-block;
+							font-family: 'Apple LiGothic';
+							font-size: 16px;
+							letter-spacing: 1px;
+						}
+						.action{
+							display: inline-block;
+							a{
+								font-size: 16px;
+								font-family: 'Apple LiGothic';
+							}
+						}
+					}
+				}
+			}
+			#past_owner_list{
+				margin-top: 5px;
+				display: none;
+				ul{
+					padding: 2px;
+					margin: 0;
+					border-radius: 5px;
+					border: 1px dashed #000080;
+					.msg{
+						font-family: 'Apple LiGothic';
+						font-size: 16px;
+					}
+					li{
+					list-style: none;
+						.owner{
+							display: inline-block;
+							font-family: 'Apple LiGothic';
+							font-size: 16px;
+							letter-spacing: 1px;
+						}
+						.action{
+							display: inline-block;
+							a{
+								font-size: 16px;
+								font-family: 'Apple LiGothic';
+							}
+						}
+					}
+				}
+			}
+			input[type = submit]{
+				margin-top: 5px;
+			}
+			.cancel-btn{
+				margin-top: 5px;
+			}
 		}
 	}
 }
@@ -455,7 +708,7 @@ input{
 				width: 33%;
 				h2{
 					color: #000000;
-					font-size: 3em;
+					font-size: 30px;
 					padding: 0 0 10px;
 					margin: 0px;	
 				}
@@ -591,7 +844,7 @@ input{
 			margin-bottom: 15px;
 		}
 		.nav-pills{
-			display: inline-table;
+			display: inline-block;
 			width: 30%;
 			margin-bottom: 20px;
 			.tab{
@@ -659,7 +912,7 @@ input{
 					display: inline-block;
 					width: 20%;
 					font-family: 'Copperplate';
-					font-size: 15px;
+					font-size: 18px;
 					position: absolute;
 					left: 15%;
 					top: 29%;
@@ -695,7 +948,7 @@ input{
 				}
 				.cus{
 					width: 80% !important;
-					font-size: 12px;
+					font-size: 11px;
 					font-family: 'Copperplate'
 				}
 				.cus-ac{
@@ -731,10 +984,68 @@ input{
 		.edit_form{
 			width: 40%;
 			margin: auto;
-			.headpic_update{
-				margin-top: 10px;
+			#headpic_blk{
+				width: 42%;
+				margin: auto;
+				margin-bottom: 10px;
+			}
+			.btn_file{
+				position: relative;
+				overflow: hidden;
+				width: 18.5%;
+				height: 30px;
+				margin: auto;
+				margin-top: 5px;
+				input[type = file]{
+					position: absolute;
+					top: 0;
+					left: 0px;
+					min-width: 100%;
+					min-height: 100%;
+					font-size: 16px;
+					background-color: none;
+					border: none;
+					cursor: n-resize;
+					display: block;
+					color: #e1d12b;
+				}
+			}
+			.relationship_link{
+				letter-spacing: 1px;
+				padding-bottom: 12px;
+				margin: 5px;
+				border-bottom: 1px dashed #000000;
+				.following{
+					display: inline-block;
+					width: 40%;
+					margin: 0 5px;
+					a{
+						width: 100%;
+						display: block;
+					}
+				}
+				.followers{
+					display: inline-block;
+					width: 40%;
+					margin: 0 5px;
+					a{
+						width: 100%;
+						display: block;
+					}
+				}
+			}
+			.edit-blk{
+				background-color: rgba(255,255,255,0.3);
+				color: #000000;
+				letter-spacing: 1px;
 				border: none;
-				color: #ffd700;
+			}
+			.non-edit-blk{
+				background-color: rgba(255,255,255,0.1);
+				color: #000000;
+				letter-spacing: 1px;
+				border: none;
+				margin-bottom: 8px;
 			}
 			label{
 				margin: 0;
@@ -749,13 +1060,6 @@ input{
 			}
 			input{
 				text-align: center;
-			}
-			.btn-blue{
-				color: #ffd700;
-				letter-spacing: 2px;
-				font-family: Apple LiGothic;
-				font-size: 16px;
-				background-color: #000080;
 			}
 		}
 	}
@@ -772,6 +1076,47 @@ input{
 		padding: 0;
 	}
 	.search{
+		text-align: center;
+		padding: 15px 0;
+		margin-left: 12%;
+		.topic{
+			font-size: 30px;
+			font-family: 'Copperplate';
+			font-weight: bold;
+			color: #000000;
+			margin-bottom: 15px;
+		}
+		.result{
+			li{
+				list-style: none;
+				font-weight: bold;
+				font-size: 18px;
+				letter-spacing: 1px;
+				.name{
+					color: #000000;
+				}
+				.name:hover{
+					color: #ffd700;
+				}
+				a{
+					text-decoration: none;
+				}
+			}	
+		}
+	}
+}
+
+/*--------------------------------- show user follow page -------------------------------*/
+.show_follow_page{
+	height: 100vh;
+	margin: 0;
+	padding: 0;
+	.col-md-8{
+		width: 88%;
+		height: 100%;
+		padding: 0;
+	}
+	.show_follow{
 		text-align: center;
 		padding: 15px 0;
 		margin-left: 12%;

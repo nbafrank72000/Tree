@@ -4,10 +4,10 @@
 	<div class = "container">
 		<div class = "gallery">
 			<div class = "gallery-nav">
-				<div class = "gallery-back"><%= link_to 'Go Timeline', static_pages_timeline_url, class: "btn btn-primary btn-sm" %></div>
+				<div class = "gallery-back"><%= link_to 'Go Timeline', static_pages_timeline_url, class: "btn btn-blue" %></div>
 				<div class = "gallery-name"><h2> Album : <%= @album.name %></h2></div>
 				<% if current_user?(@album.user) %>
-					<div class = "gallery-add"><%= link_to "Add photos", edit_album_path(@album), class: "btn btn-primary btn-sm" %></div>
+					<div class = "gallery-add"><%= link_to "Add photos OR Edit information", edit_album_path(@album), class: "btn btn-blue" %></div>
 				<% end %>
 			</div>
 
